@@ -15,11 +15,8 @@ export default function Text(props) {
   };
   const change = (event) => {
     setText(event.target.value);
-    setSvgpath("far fa-clipboard");
+    setSvgpath("bi bi-clipboard");
   };
-  const [style, setstyle] = useState({
-    fontWeight: "none",
-  });
   const TitleCase = () => {
     let newText = text.split(". ").map((currentValue) => {
       let newText = currentValue[0].toUpperCase() + currentValue.slice(1);
@@ -27,16 +24,34 @@ export default function Text(props) {
     });
     setText(newText.join(". "));
   };
-  //   const selectedText = () => {
-  //     window.getSelection().toString() ? console.log(window.getSelection().toString()) : null;
-  // }
+  const bold = () => {
+    var newText = "";
+    if (window.getSelection) {
+      newText = window.getSelection();
+    } else if (document.getSelection) {
+      newText = document.getSelection();
+    } else if (document.selection) {
+      newText = document.selection.createRange().text;
+    } else return;
+    document.getElementById("Texta").value = newText;
+  };
+  const download = () => {
+    document.getElementById("download").onclick = function () {
+      var l = document.createElement("a");
+      l.href =
+        "data:text/plain;charset=UTF-8," +
+        document.getElementById("Texta").value;
+      l.setAttribute("download", document.getElementById("Texta").value);
+      l.click();
+    };
+  };
   const copy = () => {
     var text = document.getElementById("Texta");
     text.select();
     navigator.clipboard.writeText(text.value);
-    setSvgpath("fas fa-clipboard");
+    setSvgpath("fas fa-check");
   };
-  const [svgpath, setSvgpath] = useState("far fa-clipboard");
+  const [svgpath, setSvgpath] = useState("bi bi-clipboard");
   const [text, setText] = useState("");
   return (
     <>
@@ -45,57 +60,65 @@ export default function Text(props) {
         <div className="mb-3">
           <textarea
             className="form-control"
-            name="selectedtext"
+            name="selectedext"
             id="Texta"
             rows="7"
             value={text}
             onChange={change}
-            style={style}
             contentEditable="true"
           ></textarea>
         </div>
         <button
           type="button"
-          className="btn btn-outline-primary mx-1"
+          className="btn btn-outline-dark mx-1"
           id="bold"
-          onClick={`document.execCommand('bold',false,null)`}
+          onClick={bold}
         >
-          <strong>B</strong>
+          Selected text
         </button>
+
         <button
           type="button"
-          className="btn btn-outline-primary mx-1"
+          className="btn btn-outline-dark mx-1"
           onClick={upper}
         >
           Uppercase
         </button>
         <button
           type="button"
-          className="btn btn-outline-secondary mx-1"
+          className="btn btn-outline-dark mx-1"
           onClick={lower}
         >
           Lowercase
         </button>
         <button
           type="button"
-          className="btn btn-outline-secondary mx-1"
+          className="btn btn-outline-dark mx-1"
           onClick={TitleCase}
         >
           Sentence case
         </button>
         <button
           type="button"
-          className="btn btn-outline-secondary mx-1"
+          className="btn btn-outline-dark mx-1"
           onClick={clear}
         >
           Clear Text
         </button>
         <button
           type="button"
-          className="btn btn-outline-danger mx-1"
+          className="btn btn-outline-dark mx-1"
           onClick={copy}
         >
           <i className={svgpath}></i>
+        </button>
+        <button
+          type="button"
+          className="btn btn-outline-dark mx-1"
+          id="download"
+          onClick={download}
+        >
+          <i class="bi bi-download"></i> Download
         </button>
       </div>
       <div className="container my-3">
