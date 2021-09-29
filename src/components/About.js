@@ -23,6 +23,9 @@ export default function About() {
           Download option for downloading the present document as a .txt file.
         </ul>
       </p>
+      <footer class="py-3 my-4 border">
+    <p class="text-center">© Made by Ankit Malakar</p>
+  </footer>
     </div>
   );
 }

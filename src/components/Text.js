@@ -46,10 +46,7 @@ export default function Text(props) {
     };
   };
   const copy = () => {
-    var text = document.getElementById("Texta");
-    text.select();
-    navigator.clipboard.writeText(text.value);
-    document.getSelection().removeAllRanges();
+    navigator.clipboard.writeText(text);
     setSvgpath("fas fa-check");
   };
   const [svgpath, setSvgpath] = useState("bi bi-clipboard");
@@ -129,7 +126,7 @@ export default function Text(props) {
         <p>
           <b>Words - </b>
           {
-            text.split(" ").filter((ele) => {
+            text.split(/\s+/).filter((ele) => {
               return ele.length !== 0;
             }).length
           }
@@ -149,7 +146,7 @@ export default function Text(props) {
         <p>
           <b>Reading time - </b>
           {0.008 *
-            text.split(" ").filter((ele) => {
+            text.split(/\s+/).filter((ele) => {
               return ele.length !== 0;
             }).length}{" "}
           minutes
@@ -157,7 +154,7 @@ export default function Text(props) {
         <p>
           <b>Speaking time - </b>
           {0.01 *
-            text.split(" ").filter((ele) => {
+            text.split(/\s+/).filter((ele) => {
               return ele.length !== 0;
             }).length}{" "}
           minutes
