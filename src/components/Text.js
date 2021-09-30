@@ -63,7 +63,6 @@ export default function Text(props) {
             rows="7"
             value={text}
             onChange={change}
-            contentEditable="true"
           ></textarea>
         </div>
         <button
@@ -116,7 +115,7 @@ export default function Text(props) {
           id="download"
           onClick={download}
         >
-          <i class="bi bi-download"></i> Download
+          <i className="bi bi-download"></i> Download
         </button>
       </div>
       <div className="container my-3">
